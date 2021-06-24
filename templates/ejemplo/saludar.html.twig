@@ -1,10 +1,30 @@
 <html>
   <head>
+  
   </head>
 
   <body>
     <h1>Hola, {{ nombre }} (desde Twig)</h1>
     <h2>{{ age }} años</h2>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for persona in personas %}
+          <tr>
+            <td>{{ persona.name }}</td>
+            <td>{{ persona.age }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+    </table>
 
   </body>
 </html>

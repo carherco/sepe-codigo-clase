@@ -21,6 +21,8 @@ class PublicController extends AbstractController
 
     /**
      * @Route("/about-us", name="about-us")
+     * @Route("/about", name="about")
+     * @Route("/aboutus", name="aboutus")
      */
     public function about()
     {

@@ -3,8 +3,12 @@
 #    controller: App\Controller\DefaultController::index
 
 
-home:
+root:
     path: /
+    controller: App\Controller\PublicController::home
+
+home:
+    path: /home
     controller: App\Controller\PublicController::home
 
 login: 
