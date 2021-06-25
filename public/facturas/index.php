@@ -8,6 +8,12 @@
 
     <p>Aquí sí funciona php porque es un fichero con extensión .php</p>
 
+
+    <?php 
+    $username = 'root';
+    $password = 'root';
+?>
+    //connect();
     <?php $name = "Carlos"; ?>
     <p>Hola, <?php echo $name; ?></p>
   </body>

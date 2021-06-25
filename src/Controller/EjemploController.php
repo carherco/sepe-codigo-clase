@@ -35,6 +35,7 @@ class EjemploController extends AbstractController
         $personas[2]['age']; // 32
 
         $name = 'Carlosssssss';
+
         return $this->render('ejemplo/saludar.html.twig', [
             'nombre' => $name,
             'age' => 21,
@@ -47,7 +48,6 @@ class EjemploController extends AbstractController
      */
     public function adios()
     {
-        $name = 'Carlos';
-        return new Response('<html><body>Adiós, ' . $name . '</body><html>');
+        return $this->render('ejemplo/adios.html.twig');
     }
 }

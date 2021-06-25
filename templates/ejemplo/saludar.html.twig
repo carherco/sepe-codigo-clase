@@ -1,9 +1,11 @@
 <html>
   <head>
-  
+    <link rel="stylesheet" href="css/styles.css">
   </head>
 
   <body>
+
+  {{ include('menu.html.twig') }}
     <h1>Hola, {{ nombre }} (desde Twig)</h1>
     <h2>{{ age }} años</h2>
 
