@@ -1,3 +1,19 @@
 h1 {
   color: red;
 }
+
+ul#menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul#menu li {
+  float: left;
+}
+
+ul#menu a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+}
