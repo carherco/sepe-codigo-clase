@@ -20,14 +20,14 @@ class Autor
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=10)
-     */
-    private $tipo;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nombre;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $tipo;
 
     /**
      * @ORM\ManyToMany(targetEntity=Fondo::class, mappedBy="autores")
@@ -44,18 +44,6 @@ class Autor
         return $this->id;
     }
 
-    public function getTipo(): ?string
-    {
-        return $this->tipo;
-    }
-
-    public function setTipo(string $tipo): self
-    {
-        $this->tipo = $tipo;
-
-        return $this;
-    }
-
     public function getNombre(): ?string
     {
         return $this->nombre;
@@ -64,6 +52,18 @@ class Autor
     public function setNombre(string $nombre): self
     {
         $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    public function getTipo(): ?string
+    {
+        return $this->tipo;
+    }
+
+    public function setTipo(string $tipo): self
+    {
+        $this->tipo = $tipo;
 
         return $this;
     }

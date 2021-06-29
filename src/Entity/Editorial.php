@@ -25,19 +25,13 @@ class Editorial
     private $nombre;
 
     /**
-     * @ORM\OneToMany(targetEntity=Fondo::class, mappedBy="editorial", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Fondo::class, mappedBy="editorial")
      */
     private $fondos;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Fondo::class, mappedBy="edit")
-     */
-    private $fond;
 
     public function __construct()
     {
         $this->fondos = new ArrayCollection();
-        $this->fond = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,36 +75,6 @@ class Editorial
             // set the owning side to null (unless already changed)
             if ($fondo->getEditorial() === $this) {
                 $fondo->setEditorial(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Fondo[]
-     */
-    public function getFond(): Collection
-    {
-        return $this->fond;
-    }
-
-    public function addFond(Fondo $fond): self
-    {
-        if (!$this->fond->contains($fond)) {
-            $this->fond[] = $fond;
-            $fond->setEdit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFond(Fondo $fond): self
-    {
-        if ($this->fond->removeElement($fond)) {
-            // set the owning side to null (unless already changed)
-            if ($fond->getEdit() === $this) {
-                $fond->setEdit(null);
             }
         }
 

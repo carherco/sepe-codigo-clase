@@ -25,7 +25,7 @@ class Fondo
     private $titulo;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=17)
      */
     private $isbn;
 
@@ -40,15 +40,9 @@ class Fondo
     private $publicacion;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      */
     private $categoria;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Editorial::class, inversedBy="fondos")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $editorial;
 
     /**
      * @ORM\ManyToMany(targetEntity=Autor::class, inversedBy="fondos")
@@ -56,9 +50,10 @@ class Fondo
     private $autores;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Editorial::class, inversedBy="fond")
+     * @ORM\ManyToOne(targetEntity=Editorial::class, inversedBy="fondos")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $edit;
+    private $editorial;
 
     public function __construct()
     {
@@ -130,18 +125,6 @@ class Fondo
         return $this;
     }
 
-    public function getEditorial(): ?Editorial
-    {
-        return $this->editorial;
-    }
-
-    public function setEditorial(?Editorial $editorial): self
-    {
-        $this->editorial = $editorial;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Autor[]
      */
@@ -150,30 +133,30 @@ class Fondo
         return $this->autores;
     }
 
-    public function addAutor(Autor $autor): self
+    public function addAutor(Autor $autore): self
     {
-        if (!$this->autores->contains($autor)) {
-            $this->autores[] = $autor;
+        if (!$this->autores->contains($autore)) {
+            $this->autores[] = $autore;
         }
 
         return $this;
     }
 
-    public function removeAutor(Autor $autor): self
+    public function removeAutor(Autor $autore): self
     {
-        $this->autores->removeElement($autor);
+        $this->autores->removeElement($autore);
 
         return $this;
     }
 
-    public function getEdit(): ?Editorial
+    public function getEditorial(): ?Editorial
     {
-        return $this->edit;
+        return $this->editorial;
     }
 
-    public function setEdit(?Editorial $edit): self
+    public function setEditorial(?Editorial $editorial): self
     {
-        $this->edit = $edit;
+        $this->editorial = $editorial;
 
         return $this;
     }
