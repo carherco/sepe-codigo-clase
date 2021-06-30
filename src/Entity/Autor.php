@@ -80,7 +80,7 @@ class Autor
     {
         if (!$this->fondos->contains($fondo)) {
             $this->fondos[] = $fondo;
-            $fondo->addAutore($this);
+            $fondo->addAutor($this);
         }
 
         return $this;
@@ -89,7 +89,7 @@ class Autor
     public function removeFondo(Fondo $fondo): self
     {
         if ($this->fondos->removeElement($fondo)) {
-            $fondo->removeAutore($this);
+            $fondo->removeAutor($this);
         }
 
         return $this;

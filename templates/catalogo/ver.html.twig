@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ficha{% endblock %}
+
+{% block body %}
+
+  <h1>Ficha del libro </h1>
+
+  <p>Título: {{ fondo.titulo }}</p>
+  <p>ISBN: {{ fondo.isbn }}</p>
+  <p>Editorial: {{ fondo.editorial.nombre }}</p>
+
+  <p>Autor principal: {{ fondo.autores[0].nombre | upper }} ( {{ fondo.autores[0].tipo }} )</p>
+
+
+  <p>Autores: 
+  {% for autor in fondo.autores %} 
+    {% if not loop.first %}
+      <div>Nombre: {{ autor.nombre }} </div>
+      <div>Tipo: {{ autor.tipo}} </div>
+    {% endif %}
+  {% else %} 
+    <div>Anónimo / Desconocido</div>
+  {% endfor %}
+  </p>
+
+{% endblock %}

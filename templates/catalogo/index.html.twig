@@ -19,7 +19,7 @@
         <tbody>
           {% for fondo in fondos %}
           <tr> 
-            <td>{{ loop.index }}</td>
+            <td>{{ fondo.id }}</td>
             <td>{{ fondo.titulo }}</td>
             <td>
             {{fondo.autores[0].nombre}} 
@@ -28,9 +28,7 @@
               <p>{{fondo.autores[1].nombre}}</p> 
             {% endif %}
             </td>
-
             
-
             <td>{{fondo.editorial.nombre}} 
           </tr>
           {% endfor %}
