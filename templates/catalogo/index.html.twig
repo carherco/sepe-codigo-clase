@@ -13,6 +13,7 @@
             <th>Titulo</th>
             <th>Autor</th>
             <th>Editorial</th>
+            <th></th>
           </tr>
         </thead>
           
@@ -29,7 +30,9 @@
             {% endif %}
             </td>
             
-            <td>{{fondo.editorial.nombre}} 
+            <td>{{fondo.editorial.nombre}}</td>
+
+            <td><a class="nav-link" href="{{ path('catalogo_ver', {id: fondo.id}) }}">Ver ficha completa</a></td>
           </tr>
           {% endfor %}
         </tbody>

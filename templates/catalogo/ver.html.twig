@@ -4,6 +4,7 @@
 
 {% block body %}
 
+{% if fondo %}
   <h1>Ficha del libro </h1>
 
   <p>Título: {{ fondo.titulo }}</p>
@@ -23,5 +24,13 @@
     <div>Anónimo / Desconocido</div>
   {% endfor %}
   </p>
+{% else %}
+<p>El libro no existe</p>
+
+{% endif %}
+
+
+<a href="{{ path('catalogo') }}">Volver al listado</a>
+
 
 {% endblock %}

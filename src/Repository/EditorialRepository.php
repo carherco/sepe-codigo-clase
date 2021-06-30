@@ -19,6 +19,8 @@ class EditorialRepository extends ServiceEntityRepository
         parent::__construct($registry, Editorial::class);
     }
 
+    
+
     // /**
     //  * @return Editorial[] Returns an array of Editorial objects
     //  */

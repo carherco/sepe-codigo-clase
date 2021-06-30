@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Autor;
 use App\Entity\Fondo;
-use App\FakeData\Catalogo;    // <==== IMPORTANTE
 use App\Repository\FondoRepository;
 use App\Repository\EditorialRepository;
 use App\Repository\AutorRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CatalogoController extends AbstractController
 {
@@ -21,18 +19,22 @@ class CatalogoController extends AbstractController
         //$fondos = Catalogo::$fondos;
         $fondos = $fondoRepository->findAll();
 
-        $colores = ['rojo', 'amarillo', 'verde'];
-
         return $this->render('catalogo/index.html.twig', [
             'fondos' => $fondos,
-            'colores' => $colores
         ]);
     }
 
-    #[Route('/catalogo/ver', name: 'catalogo_ver')]
-    public function ver(FondoRepository $fondoRepository): Response
+    #[Route('/catalogo/ver/{id}', name: 'catalogo_ver')]
+    public function ver($id, FondoRepository $fondoRepository): Response
     {
-        $fondo = $fondoRepository->find(1);
+        $fondo = $fondoRepository->find($id);
+        
+        if(!$fondo) {
+            return $this->render('comun/recurso-no-encontrado.html.twig', [
+                'mensaje' => 'Este libro no existe'
+            ]);
+        }
+
         return $this->render('catalogo/ver.html.twig', [
             'fondo' => $fondo
         ]);
@@ -46,10 +48,10 @@ class CatalogoController extends AbstractController
         EntityManagerInterface $em
         ): Response
     {
-        $editorialNombre = 'Seix Barral';
-        $autorId = 5;
+        $editorialNombre = 'El Barco de Vapor';
+        $autorId = 4;
 
-        $titulo = 'Symfony: The Fast Track';
+        $titulo = 'Otro libro';
         $isbn = '84-204-6583-5';
         $edicion = 2005;
         $publicacion = 2005;
@@ -57,6 +59,7 @@ class CatalogoController extends AbstractController
         
         $editorial = $editorialRepository->findOneByNombre($editorialNombre);
         $autor = $autorRepository->find($autorId);
+        $autor5 = $autorRepository->find(5);
 
         $fondo = new Fondo();
         $fondo->setTitulo($titulo);
@@ -66,8 +69,51 @@ class CatalogoController extends AbstractController
         $fondo->setCategoria($categoria);
         $fondo->setEditorial($editorial);
         $fondo->addAutor($autor);
+        $fondo->addAutor($autor5);
 
         $em->persist($fondo);
+        $em->flush();
+
+        $fondos = $fondoRepository->findAll();
+
+        return $this->render('catalogo/index.html.twig', [
+            'fondos' => $fondos
+        ]);
+    }
+
+    #[Route('/catalogo/modificar', name: 'catalogo_modificar')]
+    public function modificar(
+        FondoRepository $fondoRepository,
+        EntityManagerInterface $em
+        ): Response
+    {
+        $id = 4;
+        $publicacion = 2006;
+        
+        $fondo = $fondoRepository->find($id);
+        $fondo->setPublicacion($publicacion);
+
+        $em->persist($fondo);
+        $em->flush();
+
+        $fondos = $fondoRepository->findAll();
+
+        return $this->render('catalogo/index.html.twig', [
+            'fondos' => $fondos
+        ]);
+    }
+
+    #[Route('/catalogo/eliminar', name: 'catalogo_eliminar')]
+    public function eliminar(
+        FondoRepository $fondoRepository,
+        EntityManagerInterface $em
+        ): Response
+    {
+        $id = 5;
+        
+        $fondo = $fondoRepository->find($id);
+
+        $em->remove($fondo);
         $em->flush();
 
         $fondos = $fondoRepository->findAll();
