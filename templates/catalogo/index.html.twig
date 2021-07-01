@@ -23,7 +23,7 @@
             <td>{{ fondo.id }}</td>
             <td>{{ fondo.titulo }}</td>
             <td>
-            {{fondo.autores[0].nombre}} 
+            {{fondo.autores[0].nombre ?? ""}} 
 
             {% if fondo.autores|length > 1 %}
               <p>{{fondo.autores[1].nombre}}</p> 

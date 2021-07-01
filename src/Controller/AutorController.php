@@ -6,6 +6,7 @@ use App\Entity\Autor;
 use App\Entity\Editorial;
 use App\Entity\Fondo;
 use Doctrine\ORM\EntityManagerInterface;
+use PDOException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,10 +91,15 @@ class AutorController extends AbstractController
         $autor->setTipo($tipo);
 
         $em->persist($autor);
-        $em->flush();
-
-        $estado = $em->getUnitOfWork()->getEntityState($autor);
-        dump($estado);
+        
+        try {
+            $autor->getId();
+            $em->flush();
+        } catch(\Exception $ex) {
+            $ex->getMessage();
+            $ex->getCode();
+            $ex->getTraceAsString();
+        }
 
         // 3) redirigir al formulario
         return $this->redirectToRoute("autor_new");
