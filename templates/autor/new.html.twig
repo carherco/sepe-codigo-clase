@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Formulario de alta de autores</h1>
+
+<form method="POST" action="{{ path('autor_create') }}">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">
+        Name
+      </label>
+      <input type="text" name="nombre" required class="form-control" id="exampleInputName" aria-describedby="emailHelp">
+    </div>
+    
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">
+        Type
+      </label>
+      <select name="tipo" required class="form-control" id="exampleInputType">
+        <option value='PERSONA'>Persona</option>
+        <option value='ENTIDAD'>Entidad</option>
+        <option value='CONGRESO'>Congreso</option>
+      </select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+</form>
+{% endblock %}

@@ -10,12 +10,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
+#[Route('/catalogo')]
 class CatalogoController extends AbstractController
 {
-    #[Route('/catalogo/libros', name: 'catalogo')]
-    public function index(FondoRepository $fondoRepository): Response
+    #[Route('/libros', name: 'catalogo')]
+    public function index(FondoRepository $fondoRepository, Request $request): Response
     {
+        // $pagina = $request->query->get('pagina', 1); // $_GET['pagina']
+        // $pagina = $request->request->get('pagina', 1); // $_POST['pagina']
+        // dump($pagina);
+
         //$fondos = Catalogo::$fondos;
         $fondos = $fondoRepository->findAll();
 
@@ -24,7 +30,7 @@ class CatalogoController extends AbstractController
         ]);
     }
 
-    #[Route('/catalogo/ver/{id}', name: 'catalogo_ver')]
+    #[Route('/ver/{id}', name: 'catalogo_ver')]
     public function ver($id, FondoRepository $fondoRepository): Response
     {
         $fondo = $fondoRepository->find($id);
@@ -40,7 +46,7 @@ class CatalogoController extends AbstractController
         ]);
     }
 
-    #[Route('/catalogo/crear-con-editorial', name: 'catalogo_crear-con-editorial')]
+    #[Route('/crear-con-editorial', name: 'catalogo_crear-con-editorial')]
     public function cce(
         EditorialRepository $editorialRepository,
         AutorRepository $autorRepository,
@@ -81,7 +87,7 @@ class CatalogoController extends AbstractController
         ]);
     }
 
-    #[Route('/catalogo/modificar', name: 'catalogo_modificar')]
+    #[Route('/modificar', name: 'catalogo_modificar')]
     public function modificar(
         FondoRepository $fondoRepository,
         EntityManagerInterface $em
@@ -96,14 +102,10 @@ class CatalogoController extends AbstractController
         $em->persist($fondo);
         $em->flush();
 
-        $fondos = $fondoRepository->findAll();
-
-        return $this->render('catalogo/index.html.twig', [
-            'fondos' => $fondos
-        ]);
+        return $this->redirectToRoute('catalogo');
     }
 
-    #[Route('/catalogo/eliminar', name: 'catalogo_eliminar')]
+    #[Route('/eliminar', name: 'catalogo_eliminar')]
     public function eliminar(
         FondoRepository $fondoRepository,
         EntityManagerInterface $em
