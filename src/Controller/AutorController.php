@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Services\AutorManager;
 
 /**
  * @Route("/autor")
@@ -79,22 +80,16 @@ class AutorController extends AbstractController
     /**
      * @Route("/create", name="autor_create")
      */
-    public function create(Request $request, EntityManagerInterface $em): Response
+    public function create(Request $request, AutorManager $manager): Response
     { 
         // 1) recibir datos del formulario
         $nombre = $request->request->get('nombre');
         $tipo = $request->request->get('tipo');
 
-        // 2) dar de alta en bbdd 
-        $autor = new Autor();
-        $autor->setNombre($nombre);
-        $autor->setTipo($tipo);
-
-        $em->persist($autor);
-        
+        // 2) llamar al servicio que se ocupa de dar de alta en bbdd 
         try {
+            $autor = $manager->crearAutor($nombre, $tipo);
             $autor->getId();
-            $em->flush();
         } catch(\Exception $ex) {
             $ex->getMessage();
             $ex->getCode();
