@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Fondo{% endblock %}
+
+{% block body %}
+    <h1>Edit Fondo</h1>
+
+    {{ include('crud_fondo/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('c_r_u_d_fondo_index') }}">back to list</a>
+
+    {{ include('crud_fondo/_delete_form.html.twig') }}
+{% endblock %}

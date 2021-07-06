@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Fondo{% endblock %}
+
+
+{% block body %}
+    <h1>Create new Fondo</h1>
+
+    {{ include('crud_fondo/_form.html.twig') }}
+
+    <a href="{{ path('c_r_u_d_fondo_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fondo index{% endblock %}
+
+{% block body %}
+    <h1>Fondo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Isbn</th>
+                <th>Autor</th>
+                <th>Editorial</th>
+                <th>Edicion</th>
+                <th>Publicacion</th>
+                <th>Categoria</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fondo in fondos %}
+            <tr>
+                <td>{{ fondo.id }}</td>
+                <td>{{ fondo.titulo }}</td>
+                <td>{{ fondo.isbn }}</td>
+                <td>
+                {% for autor in fondo.autores %}
+                    <p>{{autor}}</p> 
+                {% endfor %}
+                </td>
+                <td>{{ fondo.editorial }}</td>
+                <td>{{ fondo.edicion }}</td>
+                <td>{{ fondo.publicacion }}</td>
+                <td>{{ fondo.categoria }}</td>
+                <td>
+                    <a href="{{ path('c_r_u_d_fondo_show', {'id': fondo.id}) }}">show</a>
+                    <a href="{{ path('c_r_u_d_fondo_edit', {'id': fondo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('c_r_u_d_fondo_new') }}">Create new</a>
+{% endblock %}
