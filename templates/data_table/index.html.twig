@@ -24,7 +24,7 @@
 <script>
 $(document).ready( function () {
     $('#mitabla').DataTable({
-        ajax: '/libros_json'
+        ajax: "{{ path('libros_json') }}"
     });
 } );
 

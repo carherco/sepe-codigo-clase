@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\FondoRepository;
+use App\Services\LibrosManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,20 +20,14 @@ class DataTableController extends AbstractController
     }
 
     #[Route('/libros_json', name: 'libros_json')]
-    public function libros_json(FondoRepository $fondoRepository): Response
+    public function libros_json(LibrosManager $manager): Response
     {
-        $fondos = $fondoRepository->findAll();
-
-        $fondosArray = [];
-        foreach($fondos as $fondo) {
-            $fondoArray = [
-                $fondo->getTitulo(),
-                $fondo->getIsbn(),
-                $fondo->getEdicion(),
-                $fondo->getPublicacion()
-            ];
-            $fondosArray[] = $fondoArray;
-        }
+        // Opción A)
+        //$fondosArray = $manager->getJsonFondos();
+        
+        // Opción B)
+        $fondos = $this->fondoRepository->findAll();
+        $fondosArray = $manager->arrayToJson($fondos);
 
         $content = [
             'data' => $fondosArray
