@@ -26,4 +26,19 @@ class LibrosManager {
     }
     return $fondosArray;
   }
+
+  public function arrayToJson($fondos) {
+
+    $fondosArray = [];
+    foreach($fondos as $fondo) {
+        $fondoArray = [
+            $fondo->getTitulo(),
+            $fondo->getIsbn(),
+            $fondo->getEdicion(),
+            $fondo->getPublicacion()
+        ];
+        $fondosArray[] = $fondoArray;
+    }
+    return $fondosArray;
+  }
 }
