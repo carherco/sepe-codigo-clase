@@ -8,6 +8,7 @@ use App\Repository\EditorialRepository;
 use App\Repository\AutorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,12 +23,39 @@ class CatalogoController extends AbstractController
         // $pagina = $request->request->get('pagina', 1); // $_POST['pagina']
         // dump($pagina);
 
-        //$fondos = Catalogo::$fondos;
+        // $fondos = Catalogo::$fondos;
         $fondos = $fondoRepository->findAll();
 
-        return $this->render('catalogo/index.html.twig', [
-            'fondos' => $fondos,
-        ]);
+        $fondosArray = [];
+        foreach($fondos as $fondo) {
+            $fondoArray = [
+                'titulo' => $fondo->getTitulo(),
+                'isbn' => $fondo->getIsbn()
+            ];
+            $fondosArray[] = $fondoArray;
+            //$fondosArray[] = $fondo->toArray();
+        }
+
+        return new JsonResponse($fondosArray);
+
+
+        // $fondosEncodedToJson = json_encode($fondosArray);
+        // $response = new Response(
+        //     $fondosEncodedToJson,
+        //     Response::HTTP_OK,
+        //     array('content-type' => ' application/json')
+        // );
+        // return $response;
+
+        // $response = new JsonResponse($fondosArray);
+        // return $response;
+
+        // $response = $this->json($fondosArray);
+        // return $response;
+
+        // return $this->render('catalogo/index.html.twig', [
+        //     'fondos' => $fondos,
+        // ]);
     }
 
     #[Route('/ver/{id}', name: 'catalogo_ver')]

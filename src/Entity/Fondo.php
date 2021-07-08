@@ -160,4 +160,13 @@ class Fondo
 
         return $this;
     }
+
+    public function toArray()
+    {
+        return [
+            'title' => $this->titulo,
+            'isbn' => $this->isbn,
+            'editorial' => $this->getEditorial()->getNombre()
+        ];
+    }
 }

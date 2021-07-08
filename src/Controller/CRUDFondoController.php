@@ -16,6 +16,8 @@ class CRUDFondoController extends AbstractController
     #[Route('/', name: 'c_r_u_d_fondo_index', methods: ['GET'])]
     public function index(FondoRepository $fondoRepository): Response
     {
+        $this->addFlash('info', 'Libro dado de alta correctamente');
+        
         return $this->render('crud_fondo/index.html.twig', [
             'fondos' => $fondoRepository->findAll(),
         ]);
@@ -32,6 +34,12 @@ class CRUDFondoController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($fondo);
             $entityManager->flush();
+
+            // $objMensaje = new Mensaje();
+            // $objMensaje->setTextoMensaje('Libro dado de alta correctamente');
+            // $objMensaje->setLink('http://');
+            // $this->addFlash('info', $objMensaje);
+            $this->addFlash('info', 'Libro dado de alta correctamente');
 
             return $this->redirectToRoute('c_r_u_d_fondo_index');
         }
@@ -53,7 +61,7 @@ class CRUDFondoController extends AbstractController
     #[Route('/{id}/edit', name: 'c_r_u_d_fondo_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Fondo $fondo): Response
     {
-        $form = $this->createForm(FondoType::class, $fondo);
+        $form = $this->createForm(FondoTypeForEdit::class, $fondo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
