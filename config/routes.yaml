@@ -12,7 +12,7 @@ home:
     controller: App\Controller\PublicController::home
 
 login: 
-    path: /login
+    path: /loginxxxxxxxxx
     controller: App\Controller\PublicController::login
 
 otro: 

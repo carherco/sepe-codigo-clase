@@ -23,11 +23,11 @@ class DataTableController extends AbstractController
     public function libros_json(LibrosManager $manager): Response
     {
         // Opción A)
-        // $fondosArray = $manager->getJsonFondos();
+        $fondosArray = $manager->getJsonFondos();
         
         // Opción B)
-        $fondos = $this->fondoRepository->findAll();
-        $fondosArray = $manager->arrayToJson($fondos);
+        // $fondos = $this->fondoRepository->findAll();
+        // $fondosArray = $manager->arrayToJson($fondos);
 
         $content = [
             'data' => $fondosArray
