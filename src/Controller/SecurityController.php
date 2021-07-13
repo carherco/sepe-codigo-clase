@@ -27,10 +27,37 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/login-json", name="login-json", methods={"POST"})
+     */
+    public function loginjson()
+    {
+        $user = $this->getUser();
+
+        $token = sha1(random_bytes(12));
+        //$user->setTokenSession($token);
+
+        return $this->json([
+            'username' => $user->getUserIdentifier(),
+            'roles' => $user->getRoles(),
+            'id' => $user->getId(),
+            'token' => $token
+        ]);
+    }
+
+    /**
      * @Route("/logout", name="app_logout")
      */
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    // public function borrarlibro(Request $request)
+    // {
+    //     $token = $request->......;
+    //     $user = $repoUser->findOneByTokenSession($token);
+
+    //     $roles = $user->getRoles();
+    // }
+    
 }
