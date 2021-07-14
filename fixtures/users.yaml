@@ -1,0 +1,13 @@
+parameters:
+    hash: $2y$13$KI/2bbjTMVrEmc.wtVe7dOelSDPyNaoiDl.zfwKZAqe82rz0yJDiW
+
+App\Entity\User:
+    user_admin:
+        email: admin@admin.com
+        roles: ["ROLE_ADMIN"]
+        password: <{hash}>
+
+    user_carlos:
+        email: carlos@carlos.com
+        roles: []
+        password: <{hash}>

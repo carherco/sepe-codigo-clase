@@ -1,0 +1,21 @@
+App\Entity\Editorial:
+    editorial_{1..100}:
+        nombre: <company()>
+
+App\Entity\Autor:
+    autor_{1..500}:
+        nombre: <name()>
+        tipo: 'PERSONA'
+    autor_{501..600}:
+        nombre: <company()>
+        tipo: 'ENTIDAD'
+
+App\Entity\Fondo:
+    fondo_{1..1000}:
+        titulo: <sentence()>
+        isbn: <isbn13()>
+        edicion: <numberBetween(1940, 2021)>
+        publicacion: '15%? <numberBetween(1940, 2021)>'
+        categoria: <word()>
+        editorial: '@editorial_*'
+        autores: '<numberBetween(1, 3)>x @autor_*'

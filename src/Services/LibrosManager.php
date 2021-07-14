@@ -12,7 +12,7 @@ class LibrosManager {
   }
 
   public function getJsonFondos() {
-    $fondos = $this->fondoRepository->findAll();
+    $fondos = $this->fondoRepository->findAllWithAutoresAndEditoriales();
 
     $fondosArray = [];
     foreach($fondos as $fondo) {
@@ -20,7 +20,8 @@ class LibrosManager {
             $fondo->getTitulo(),
             $fondo->getIsbn(),
             $fondo->getEdicion(),
-            $fondo->getPublicacion()
+            $fondo->getPublicacion(),
+            $fondo->getEditorial()->getNombre()
         ];
         $fondosArray[] = $fondoArray;
     }

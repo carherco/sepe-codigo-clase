@@ -18,8 +18,10 @@ class CRUDFondoController extends AbstractController
     {
         $this->addFlash('info', 'Libro dado de alta correctamente');
         
+        $fondos = $fondoRepository->findAllWithAutoresAndEditoriales();
+        dump($fondos);
         return $this->render('crud_fondo/index.html.twig', [
-            'fondos' => $fondoRepository->findAll(),
+            'fondos' => $fondos,
         ]);
     }
 
