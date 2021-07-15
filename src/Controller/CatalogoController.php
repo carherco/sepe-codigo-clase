@@ -59,10 +59,9 @@ class CatalogoController extends AbstractController
     }
 
     #[Route('/ver/{id}', name: 'catalogo_ver', requirements: ["id"=>"\d+"])]
-    public function ver(FondoRepository $fondoRepository, $id): Response
+    public function ver(Fondo $fondo): Response
     {
-        dump($id);
-        $fondo = $fondoRepository->find($id);
+        // $fondo = $fondoRepository->find($id);
 
         // if(!$fondo) {
         //     return $this->render('comun/recurso-no-encontrado.html.twig', [

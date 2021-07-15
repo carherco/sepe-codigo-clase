@@ -20,13 +20,14 @@ class CRUDFondoController extends AbstractController
         // $itemsPerPage = $this->getParameter('items_per_page');
         $fondos = $fondoRepository->findAllWithAutoresAndEditoriales();
         dump($title);
+
         return $this->render('crud_fondo/index.html.twig', [
             'fondos' => $fondos,
             'pagina' => $page
         ]);
     }
 
-    #[Route('/new', name: 'c_r_u_d_fondo_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'c_r_u_d_fondo_new', methods: ['GET', 'POST'], priority: 2)]
     public function new(Request $request): Response
     {
         $fondo = new Fondo();

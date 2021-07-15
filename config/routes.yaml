@@ -9,9 +9,18 @@ homepage:
         route: home
         permanent: false
 
-home:
+homeRedirect:
     path: /home
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: /es/home
+        permanent: false
+
+home:
+    path: /{_locale}/home
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    requirements:
+        _locale: 'es|en|fr'
     defaults:
         # Obligatoria la ruta a la plantilla
         template:  'public/home.html.twig'
