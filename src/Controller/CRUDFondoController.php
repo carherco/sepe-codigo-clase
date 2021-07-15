@@ -13,15 +13,16 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/crud-fondo')]
 class CRUDFondoController extends AbstractController
 {
-    #[Route('/', name: 'c_r_u_d_fondo_index', methods: ['GET'])]
-    public function index(FondoRepository $fondoRepository): Response
+    #[Route('/list/{page}', name: 'c_r_u_d_fondo_index', methods: ['GET'], defaults: ['page' => 1, 'title' => 'Hello world!'])]
+    public function index(FondoRepository $fondoRepository, $page, $title): Response
     {
         $this->addFlash('info', 'Libro dado de alta correctamente');
-        
+        // $itemsPerPage = $this->getParameter('items_per_page');
         $fondos = $fondoRepository->findAllWithAutoresAndEditoriales();
-        dump($fondos);
+        dump($title);
         return $this->render('crud_fondo/index.html.twig', [
             'fondos' => $fondos,
+            'pagina' => $page
         ]);
     }
 
@@ -52,7 +53,7 @@ class CRUDFondoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'c_r_u_d_fondo_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'c_r_u_d_fondo_show', methods: ['GET'], requirements: ["id"=>"\d+"])]
     public function show(Fondo $fondo): Response
     {
         return $this->render('crud_fondo/show.html.twig', [
@@ -78,7 +79,7 @@ class CRUDFondoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'c_r_u_d_fondo_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'c_r_u_d_fondo_delete', methods: ['POST'], requirements: ["id"=>"\d+"])]
     public function delete(Request $request, Fondo $fondo): Response
     {
         if ($this->isCsrfTokenValid('delete'.$fondo->getId(), $request->request->get('_token'))) {

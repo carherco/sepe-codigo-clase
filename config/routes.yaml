@@ -2,14 +2,26 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-
-root:
-    path: /home
-    controller: App\Controller\PublicController::home
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: home
+        permanent: false
 
 home:
     path: /home
-    controller: App\Controller\PublicController::home
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        # Obligatoria la ruta a la plantilla
+        template:  'public/home.html.twig'
+        # Opcionalmente puedes indicar al navegador opciones de cacheo
+        maxAge:    86400
+        sharedAge: 86400
+        # opcionalmente puedes pasar datos a la plantilla
+        context:
+            site_name: 'ACME'
+            theme: 'dark'
 
 login: 
     path: /loginxxxxxxxxx

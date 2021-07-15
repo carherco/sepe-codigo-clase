@@ -8,12 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PublicController extends AbstractController
 {
-
-    public function home()
-    {
-        return $this->render('public/home.html.twig');
-    }
-
     public function login()
     {
         return $this->render('public/login.html.twig');

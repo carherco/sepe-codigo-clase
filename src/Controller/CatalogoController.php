@@ -58,11 +58,12 @@ class CatalogoController extends AbstractController
         // ]);
     }
 
-    #[Route('/ver/{id}', name: 'catalogo_ver')]
-    public function ver(Fondo $fondo): Response
+    #[Route('/ver/{id}', name: 'catalogo_ver', requirements: ["id"=>"\d+"])]
+    public function ver(FondoRepository $fondoRepository, $id): Response
     {
-        //$fondo = $fondoRepository->find($id);
-        
+        dump($id);
+        $fondo = $fondoRepository->find($id);
+
         // if(!$fondo) {
         //     return $this->render('comun/recurso-no-encontrado.html.twig', [
         //         'mensaje' => 'Este libro no existe'
