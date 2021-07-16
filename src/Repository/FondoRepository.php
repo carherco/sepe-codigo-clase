@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Fondo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -48,11 +49,31 @@ class FondoRepository extends ServiceEntityRepository
             ->join('f.autores', 'a')
             ->addSelect('a')
             ->join('f.editorial', 'e')
-            ->addSelect('e');
-            // ->setMaxResults(10)
+            ->addSelect('e')
+        ;
 
         $query = $qb->getQuery();
         return $query->getResult();
+    }
+
+    /**
+     * @return Fondo[] Returns an array of Fondo objects
+     */
+    public function findAllWithAutoresAndEditorialesPaginado(int $page, string $orderBy, int $itemsPerPage = 10)
+    {
+        $startAt = ($page - 1) * $itemsPerPage;
+        $qb = $this->createQueryBuilder('f')
+            ->leftJoin('f.autores', 'a')
+            ->addSelect('a')
+            ->leftJoin('f.editorial', 'e')
+            ->addSelect('e')
+            ->orderBy('f.' . $orderBy)
+            ->setFirstResult($startAt)
+            ->setMaxResults($itemsPerPage)
+        ;
+        $query = $qb->getQuery();
+
+        return new Paginator($query);
     }
 
 

@@ -17,3 +17,24 @@ ul#menu a {
   padding: 8px;
   background-color: #dddddd;
 }
+
+#paginador span {
+  margin-left: 9px; margin-right: 9px;
+}
+
+#paginador a:link, #paginador a:visited {
+  background-color: #94c4fa;
+  color: white;
+  padding: 3px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#paginador a:hover, #paginador a:active {
+  background-color: #94c4fa;
+}
+
+#paginador a.currentPage {
+  background-color: rgb(55, 0, 255);
+}

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fondo index{% endblock %}
+
+{% block body %}
+    <h1>Listado del catálogo</h1>
+
+    <h2>Página: {{paginaActual}} | Ordenar por: {{orderBy}} | Número total de páginas: {{numTotalPaginas}}</h2>
+
+    <div id="paginador">
+        {% if paginaActual > 1 %}
+        <a href="{{path('catalogo_paginado', {page: paginaActual - 1, orderBy: orderBy} )}}">Pág. anterior</a>
+        {% else %}
+        <span>Pág. anterior</span>
+        {% endif %}
+        <span>
+            {% for numPag in 1..numTotalPaginas %}
+            <a href="{{path('catalogo_paginado', {page: numPag, orderBy: orderBy} )}}" {% if numPag == paginaActual %} class="currentPage" {% endif %}>{{ numPag }}</a>
+            {% endfor %}
+        </span>
+        {% if paginaActual < numTotalPaginas %}
+        <a href="{{path('catalogo_paginado', {page: paginaActual + 1, orderBy: orderBy} )}}">Pág. siguiente</a>
+        {% else %}
+        <span>Pág. siguiente</span>
+        {% endif %}
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'id'} )}}">Id</a></th>
+                <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'titulo'} )}}">{{ 'Titulo' | trans }}</a></th>
+                <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'isbn'} )}}">Isbn</a></th>
+                <th>{{ 'Autor' | trans }}</th>
+                <th>{{ 'Editorial' | trans }}</th>
+                <th>Edicion</th>
+                <th>Publicacion</th>
+                <th>{{ 'Categoria' | trans }}</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fondo in fondos %}
+            <tr>
+                <td>{{ fondo.id }}</td>
+                <td>{{ fondo.titulo }}</td>
+                <td>{{ fondo.isbn }}</td>
+                <td>
+                {% for autor in fondo.autores %}
+                    <p>{{autor}}</p> 
+                {% endfor %}
+                </td>
+                <td>{{ fondo.editorial }}</td>
+                <td>{{ fondo.edicion }}</td>
+                <td>{{ fondo.publicacion }}</td>
+                <td>{{ fondo.categoria }}</td>
+                <td>
+                    <a href="{{ path('c_r_u_d_fondo_show', {'id': fondo.id}) }}">show</a>
+                    <a href="{{ path('c_r_u_d_fondo_edit', {'id': fondo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    <div id="paginador">
+        {% if paginaActual > 1 %}
+        <a href="{{path('catalogo_paginado', {page: paginaActual - 1, orderBy: orderBy} )}}">Pág. anterior</a>
+        {% else %}
+        <span>Pág. anterior</span>
+        {% endif %}
+        <span>
+            {% for numPag in 1..numTotalPaginas %}
+            <a href="{{path('catalogo_paginado', {page: numPag, orderBy: orderBy} )}}" {% if numPag == paginaActual %} class="currentPage" {% endif %}>{{ numPag }}</a>
+            {% endfor %}
+        </span>
+        {% if paginaActual < numTotalPaginas %}
+        <a href="{{path('catalogo_paginado', {page: paginaActual + 1, orderBy: orderBy} )}}">Pág. siguiente</a>
+        {% else %}
+        <span>Pág. siguiente</span>
+        {% endif %}
+    </div>
+
+    <a href="{{ path('c_r_u_d_fondo_new') }}">Create new</a>
+{% endblock %}
