@@ -31,11 +31,11 @@
                 <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'id'} )}}">Id</a></th>
                 <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'titulo'} )}}">{{ 'Titulo' | trans }}</a></th>
                 <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'isbn'} )}}">Isbn</a></th>
-                <th>{{ 'Autor' | trans }}</th>
-                <th>{{ 'Editorial' | trans }}</th>
-                <th>Edicion</th>
-                <th>Publicacion</th>
-                <th>{{ 'Categoria' | trans }}</th>
+                <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'autor'} )}}">{{ 'Autor' | trans }}</a></th>
+                <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'editorial'} )}}">{{ 'Editorial' | trans }}</a></th>
+                <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'edicion'} )}}">Edicion</a></th>
+                <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'publicacion'} )}}">Publicacion</a></th>
+                <th><a href="{{path('catalogo_paginado', {page: 1, orderBy: 'categoria'} )}}">{{ 'Categoria' | trans }}</a></th>
                 <th>actions</th>
             </tr>
         </thead>
