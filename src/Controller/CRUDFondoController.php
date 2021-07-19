@@ -8,19 +8,22 @@ use App\Repository\FondoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/crud-fondo')]
 class CRUDFondoController extends AbstractController
 {
     #[Route('/list/{page}', name: 'c_r_u_d_fondo_index', methods: ['GET'], defaults: ['page' => 1, 'title' => 'Hello world!'])]
-    public function index(FondoRepository $fondoRepository, $page, $title): Response
+    public function index(SessionInterface $session, FondoRepository $fondoRepository, $page, $title): Response
     {
         $this->addFlash('info', 'Libro dado de alta correctamente');
         // $itemsPerPage = $this->getParameter('items_per_page');
         $fondos = $fondoRepository->findAllWithAutoresAndEditoriales();
         dump($title);
 
+        $titulo = $session->get('titulo', 'valor por defecto');
+        dump($titulo);
         return $this->render('crud_fondo/index.html.twig', [
             'fondos' => $fondos,
             'pagina' => $page

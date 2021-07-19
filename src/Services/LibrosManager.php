@@ -7,6 +7,7 @@ use App\Repository\FondoRepository;
 class LibrosManager {
 
   private $fondoRepository;
+
   public function __construct(FondoRepository $fondoRepository) {
     $this->fondoRepository = $fondoRepository;
   }

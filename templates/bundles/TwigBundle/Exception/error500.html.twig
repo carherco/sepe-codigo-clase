@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erro {{status_code}}{% endblock %}
+
+{% block body %}
+
+<h2>Algo inesperado ha ocurrido: </h2>
+
+<p>Póngase en contacto con el administrador</p>
+
+Pincha <a href="{{path('home')}}">aquí</a> para volver a la página principal 
+
+{% endblock %}

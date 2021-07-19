@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erro {{status_code}}{% endblock %}
+
+{% block body %}
+
+<h2>Recurso no encontrado: </h2>
+
+<p>{{exception.message}}</p>
+
+Pincha <a href="{{path('home')}}">aquí</a> para volver a la página principal 
+
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fondo index{% endblock %}
+{% block title %}Catálogo{% endblock %}
 
 {% block body %}
     <h1>Listado del catálogo</h1>
@@ -9,19 +9,21 @@
 
     <div id="paginador">
         {% if paginaActual > 1 %}
-        <a href="{{path('catalogo_paginado', {page: paginaActual - 1, orderBy: orderBy} )}}">Pág. anterior</a>
+            <a href="{{path('catalogo_paginado', {page: paginaActual - 1, orderBy: orderBy} )}}">Pág. anterior</a>
         {% else %}
-        <span>Pág. anterior</span>
+            <span>Pág. anterior</span>
         {% endif %}
+        
         <span>
             {% for numPag in 1..numTotalPaginas %}
-            <a href="{{path('catalogo_paginado', {page: numPag, orderBy: orderBy} )}}" {% if numPag == paginaActual %} class="currentPage" {% endif %}>{{ numPag }}</a>
+                <a href="{{path('catalogo_paginado', {page: numPag, orderBy: orderBy} )}}" {% if numPag == paginaActual %} class="currentPage" {% endif %}>{{ numPag }}</a>
             {% endfor %}
         </span>
+        
         {% if paginaActual < numTotalPaginas %}
-        <a href="{{path('catalogo_paginado', {page: paginaActual + 1, orderBy: orderBy} )}}">Pág. siguiente</a>
+            <a href="{{path('catalogo_paginado', {page: paginaActual + 1, orderBy: orderBy} )}}">Pág. siguiente</a>
         {% else %}
-        <span>Pág. siguiente</span>
+            <span>Pág. siguiente</span>
         {% endif %}
     </div>
 

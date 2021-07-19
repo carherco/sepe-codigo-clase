@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Route('/catalogo')]
 class CatalogoController extends AbstractController
@@ -59,15 +60,18 @@ class CatalogoController extends AbstractController
     }
 
     #[Route('/ver/{id}', name: 'catalogo_ver', requirements: ["id"=>"\d+"])]
-    public function ver(Fondo $fondo): Response
+    public function ver($id, FondoRepository $fondoRepository): Response
     {
-        // $fondo = $fondoRepository->find($id);
+        $fondo = $fondoRepository->find($id);
 
-        // if(!$fondo) {
-        //     return $this->render('comun/recurso-no-encontrado.html.twig', [
-        //         'mensaje' => 'Este libro no existe'
-        //     ]);
-        // }
+        if(!$fondo) {
+            // throw new \Exception('Este libro no existe');
+            throw $this->createNotFoundException('Este libro no existe'); 
+            // throw new NotFoundHttpException('Este libro no existe');
+            // return $this->render('comun/recurso-no-encontrado.html.twig', [
+            //     'mensaje' => 'Este libro no existe'
+            // ]);
+        }
 
         return $this->render('catalogo/ver.html.twig', [
             'fondo' => $fondo

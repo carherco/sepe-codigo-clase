@@ -14,19 +14,19 @@ security:
                 property: email
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
         main:
             lazy: true
             provider: app_user_provider
-            json_login:
-                check_path: /login-json
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
-            #custom_authenticator: App\Security\MyAuthenticator
+            # json_login:
+            #     check_path: /login-json
+            #     success_handler: lexik_jwt_authentication.handler.authentication_success
+            #     failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            # guard:
+            #     authenticators:
+            #         - lexik_jwt_authentication.jwt_token_authenticator
+            custom_authenticator: App\Security\MyAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
